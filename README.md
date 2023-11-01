@@ -1,4 +1,4 @@
-# Sistema de gerenciamento de clientes
+# WordPress - Criação de plugins
 ## Contexto
 Desenvolver dois plugins para mapear cliques em botão.
 
