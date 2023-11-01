@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  db:
+    container_name: mysql_db
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: senha_root_mysql
+      MYSQL_DATABASE: name_db
+      MYSQL_USER: name_user
+      MYSQL_PASSWORD: user_pass
+
+  wordpress:
+    container_name: wordpress_app
+    build: ./
+    ports:
+      - "8080:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: name_user
+      WORDPRESS_DB_PASSWORD: user_pass
+      WORDPRESS_DB_NAME: name_db
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+
+volumes:
+  db_data:
