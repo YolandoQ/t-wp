@@ -46,17 +46,12 @@ function click_report_page() {
     echo '</div>';
 }
 
-
-function add_click_report_page() {
-    add_menu_page('Relatório de Cliques', 'Relatório de Cliques', 'manage_options', 'click-report', 'click_report_page');
-}
-
 function click_report_cli( $args, $assoc_args ) {
 
     global $wpdb;
     $table_name = $wpdb->prefix . 'click_history';
 
-    $results = $wpdb->get_results("SELECT * FROM $table_name ORDER BY click_time DESC LIMIT 10");
+    $results = $wpdb->get_results("SELECT * FROM $table_name ORDER BY click_time DESC");
 
     if ($results) {
         foreach ($results as $result) {
@@ -69,6 +64,10 @@ function click_report_cli( $args, $assoc_args ) {
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
     WP_CLI::add_command( 'click-report', 'click_report_cli' );
+}
+
+function add_click_report_page() {
+    add_menu_page('Relatório de Cliques', 'Relatório de Cliques', 'manage_options', 'click-report', 'click_report_page');
 }
 
 add_action('admin_menu', 'add_click_report_page');
